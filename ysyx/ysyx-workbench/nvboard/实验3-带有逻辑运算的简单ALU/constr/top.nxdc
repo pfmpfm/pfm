@@ -1,0 +1,9 @@
+top=top
+
+a (SW7,SW6,SW5,SW4)
+b (SW3,SW2,SW1,SW0)
+c (LD11,LD10,LD9,LD8)
+choose (SW14,SW13,SW12)
+zero (LD15)
+overflow (LD14)
+cin (LD13)
