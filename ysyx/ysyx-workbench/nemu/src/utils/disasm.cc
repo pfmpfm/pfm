@@ -31,6 +31,7 @@
 #include "llvm/Support/TargetRegistry.h"
 #endif
 #include "llvm/Support/TargetSelect.h"
+#include "trace.h"
 
 #if defined(__GNUC__) && !defined(__clang__)
 #pragma GCC diagnostic pop

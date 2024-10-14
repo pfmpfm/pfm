@@ -11,5 +11,4 @@
 .*
 _*
 *~
-build/
 !.gitignore

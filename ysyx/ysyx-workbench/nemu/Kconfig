@@ -145,14 +145,28 @@ config TRACE_END
 
 config ITRACE
   depends on TRACE && TARGET_NATIVE_ELF && ENGINE_INTERPRETER
-  bool "Enable instruction tracer"
+  bool "Enable ITRACE"
   default y
 
+config MTRACE
+  depends on TRACE && TARGET_NATIVE_ELF && ENGINE_INTERPRETER
+  bool "Enable MTRACE"
+  default y
+
+config FTRACE
+  depends on TRACE && TARGET_NATIVE_ELF && ENGINE_INTERPRETER
+  bool "Enable FTRACE"
+  default y
+
+config DTRACE
+  depends on TRACE && TARGET_NATIVE_ELF && ENGINE_INTERPRETER
+  bool "Enable DTRACE"
+  default y
+  
 config ITRACE_COND
   depends on ITRACE
   string "Only trace instructions when the condition is true"
   default "true"
-
 
 config DIFFTEST
   depends on TARGET_NATIVE_ELF

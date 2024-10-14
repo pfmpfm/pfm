@@ -29,12 +29,20 @@ int atoi(const char* nptr) {
   return x;
 }
 
+static void *addr = NULL;
 void *malloc(size_t size) {
   // On native, malloc() will be called during initializaion of C runtime.
   // Therefore do not call panic() here, else it will yield a dead recursion:
   //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
 #if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
-  panic("Not implemented");
+  if (addr == NULL) {
+    addr = heap.start; // 初始化 addr 为堆区起始位置
+  }
+
+  void *allocated_memory = addr;
+  addr += size; // 更新 addr 为下次分配的位置
+
+  return allocated_memory;
 #endif
   return NULL;
 }

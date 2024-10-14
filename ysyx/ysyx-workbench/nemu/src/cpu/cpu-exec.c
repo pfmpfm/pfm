@@ -18,6 +18,7 @@
 #include <cpu/difftest.h>
 #include <locale.h>
 #include "/home/pfm/ysyx/ysyx-workbench/nemu/src/monitor/sdb/sdb.h"
+#include "/home/pfm/ysyx/ysyx-workbench/nemu/src/utils/trace.h"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -34,9 +35,9 @@ static bool g_print_step = false;
 void device_update();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
-#ifdef CONFIG_ITRACE_COND
-  if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
-#endif
+
+  IFDEF(CONFIG_ITRACE, log_write("%s\n", _this->logbuf));
+
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   IFDEF(CONFIG_WATCHPOINT, checkWatchPoint());
@@ -94,7 +95,11 @@ static void statistic() {
 }
 
 void assert_fail_msg() {
+  printf("======================寄存器值情况======================\n");
   isa_reg_display();
+  printf("======================指令执行踪迹======================\n");
+  IFDEF(CONFIG_ITRACE,display_inst());
+  printf("=======================================================\n");
   statistic();
 }
 

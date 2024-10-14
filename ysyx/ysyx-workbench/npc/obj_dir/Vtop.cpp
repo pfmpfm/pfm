@@ -4,6 +4,7 @@
 #include "Vtop.h"
 #include "Vtop__Syms.h"
 #include "verilated_vcd_c.h"
+#include "verilated_dpi.h"
 
 //============================================================
 // Constructors
@@ -11,9 +12,10 @@
 Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vtop__Syms(contextp(), _vcname__, this)}
-    , a{vlSymsp->TOP.a}
-    , b{vlSymsp->TOP.b}
-    , f{vlSymsp->TOP.f}
+    , clk{vlSymsp->TOP.clk}
+    , rst{vlSymsp->TOP.rst}
+    , inst{vlSymsp->TOP.inst}
+    , pc{vlSymsp->TOP.pc}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

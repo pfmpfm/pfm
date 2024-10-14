@@ -252,14 +252,14 @@ word_t eval(int p, int q, bool *success) {
 
             if (tokens[i].type == TK_NUMBER || tokens[i].type == TK_HEX || tokens[i].type == TK_REG) continue;
 
-            if (top < 0) {
+            if (top < 0) { //第一个数压入栈
                 top++;
                 stack[top].idx = i;
                 stack[top].type = tokens[i].type;
                 continue;
             }
 
-            if (tokens[i].type == (int)('(')) {  // 遇到左括号
+            if (tokens[i].type == (int)('(')) {  // 遇到左括号,压入栈
                 top++;
                 stack[top].idx = i;
                 stack[top].type = tokens[i].type;
@@ -267,10 +267,10 @@ word_t eval(int p, int q, bool *success) {
             }
 
             if (tokens[i].type == (int)(')')) {  // 遇到右括号
-                while (top >= 0 && stack[top].type != '(') {
+                while (top >= 0 && stack[top].type != '(') {//从栈中寻找最近的左括号
                     top--;
                 }
-                top--;
+                top--;//从栈中移除这个左括号
                 continue;
             }
 
@@ -354,7 +354,7 @@ word_t expr(char *e, bool *success) {
 
     mark();  // 标记负号和指针操作符
     evalSuccess = true;
-    exprAns = eval(0, nr_token - 1, &evalSuccess);  // 评估表达式
+    exprAns = eval(0, nr_token - 1, &evalSuccess);  // 表达式求值
     *success = evalSuccess;  // 返回计算是否成功
     return evalSuccess ? exprAns : 0;
 }

@@ -28,11 +28,11 @@ const char *regs[] = {
 void isa_reg_display() {
     for(int index = 0; index < sizeof(regs)/sizeof(regs[0]); index++) {
       if((index == 1) || (index == 2) || (index == 3) || (index == 8) || (index == 9))
-        printf("Register '%s' =  0x%x\n", regs[index], cpu.gpr[index]);
+        printf("Register %-4s =  0x%x\n", regs[index], cpu.gpr[index]);
       else 
-        printf("Register '%s' =  %u\n", regs[index], cpu.gpr[index]);
+        printf("Register %-4s =  %u\n", regs[index], cpu.gpr[index]);
     }
-    printf("Register '%s' =  0x%x\n", "pc", cpu.pc);
+    printf("Register %-4s =  0x%x\n", "pc", cpu.pc);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
